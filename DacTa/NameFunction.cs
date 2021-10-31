@@ -16,7 +16,7 @@ namespace DacTa
         string[] temp;
 
 
-        private int CheckType(string strc)
+        public int CheckType(string strc)
         {
             if (strc == "Max2So")
             {
@@ -40,7 +40,7 @@ namespace DacTa
             return loai;
 
         }
-        private string  SetNamePG(int loai)
+        public string  SetNamePG(int loai)
         {
             string name="";
             
@@ -61,7 +61,7 @@ namespace DacTa
             }
             return namePG = "namespace "+name;
         }
-        private void HamNhap(List<string> input, string str2, int loai)
+        public void HamNhap(List<string> input, string str2, int loai)
         {
             
             string nhap = "";

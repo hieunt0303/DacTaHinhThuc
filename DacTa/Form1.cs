@@ -29,6 +29,9 @@ namespace DacTa
         string kq;
         int loai;
 
+        NameFunction namefun = new NameFunction();
+        PreFunction prefun = new PreFunction();
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -442,6 +445,11 @@ namespace DacTa
                 this.HighLight(textINPUT, CaseText(i), i);
                 this.HighLight(textOUTPUT, CaseText(i), i);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
