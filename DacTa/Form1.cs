@@ -28,6 +28,11 @@ namespace DacTa
         int check2;
         string kq;
         int loai;
+        string inputPath;
+
+        string namePath;
+        string prePath;
+        string postPath;
 
         NameFunction namefun = new NameFunction();
         PreFunction prefun = new PreFunction();
@@ -40,6 +45,21 @@ namespace DacTa
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+        }
+
+        // hàm chia các phần name,pre,post
+        private void SetFunction()
+        {
+            int postX;
+            int preX;
+            inputPath = textINPUT.Text;
+            string cut = inputPath.Replace("\n", " ").Replace(" ",string.Empty);
+            preX = cut.IndexOf("pre");
+            postX = cut.IndexOf("post");
+            namePath = cut.Substring(0, preX);
+            prePath = cut.Substring(preX, postX);
+            postPath = cut.Substring(postX);
+
         }
         //hàm xác định loại tham số đầu vào
         private void SetVari(string arry)
