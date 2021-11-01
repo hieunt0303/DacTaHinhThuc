@@ -10,7 +10,7 @@ namespace DacTa
     {
         string NameFunc;
         string txtOut;
-        int loai;
+        string loai;
         string[] stringOut;
         string namePG;
         string[] temp;
@@ -22,7 +22,7 @@ namespace DacTa
 
         }
         // hàm chung output tên hàm 
-        public string  SetNamePG(string NameFunc,string namePath,int loai)
+        public string  SetNamePG(string NameFunc,string namePath,string loai)
         {
             if (NameFunc == "Xuat")
             {
@@ -190,55 +190,59 @@ namespace DacTa
             }
         }
     
-        public void HamNhap(List<string> input, string str2, int loai)
+        public void HamNhap(List<string> input, string namepath)
         {
-            
-            string nhap = "";
-            string nhap2 = "";
-            string ts = "";
-            string[] temp1 = str2.Split(new[] { ",", ":", "(", ")" }, StringSplitOptions.None);
+            string[] path = namepath.Split(new[] { "(", ")" }, StringSplitOptions.None);
+            string[] vari = path[1].Split(new[] { ":", "," }, StringSplitOptions.None);
            
-            for (int i = 1; i < temp1.Length; i++)
-            {
-                if (temp1[i] == "R")
-                {
-                    nhap = "int" + temp[i - 1]  ;
-                    nhap2 = "int";
-                    
-                }
-                else if (temp1[i] == "N")
-                {
-                    nhap = "double" + temp[i - 1] ;
-                    
-                }
-                else if (temp1[i] == "char")
-                {
-                    nhap = "char" + temp[i - 1] ;
-                    
-                }
-            }
-            if (loai == 1)
-            {
+                input.Add(SetNamePG("Nhap", path[0], path[1]));
+                input.Add("\t\t{");
+
                 
-                string tenham = string.Format("/t/t public void Nhap(ref {0} {1} ,ref {3} {4}) ",nhap2,temp1[0],nhap2,temp1[2]);
-                string loainhap1 = string.Format("/t/t/t Console.WriteLine( \" nhap {0} \");",temp1[0]);
-                string doc1 = string.Format("/t/t/t {0} = {1}.Parse(Console.Readline()); ", temp1[0], nhap2);
-                string loainhap2 = string.Format("/t/t/t Console.WriteLine( \" nhap {0} \");", temp1[2]);
-                string doc2 = string.Format("/t/t/t {0} = {1}.Parse(Console.Readline()); ", temp1[2], nhap2);
-                input.Add(tenham);
-                input.Add("/t/t{");
-                input.Add(loainhap1);
-                input.Add(doc1);
-                input.Add(loainhap2);
-                input.Add(doc2);
-                input.Add("/t/t}");
-            }
-            else if (loai == 2)
-            {
-                input.Add("/t/t public void NhapDiem()");
-                input.Add("/t/t/t{");
-            }
-        } 
+                for (int i = 0; i < vari.Length; i += 2)
+                {
+                    string nhap1 = string.Format("\t\t\tConsole.WriteLine(" + "\"Nhap {0}: \");", vari[i]);
+                    input.Add(nhap1);
+                    string nhap2 = string.Format("\t\t\t{0} =", vari[i]);
+
+                    if (vari[i + 1] == "R")
+                    {
+                    nhap2 += "float.Parse(Console.ReadLine());";
+                    }
+                    else if (vari[i + 1] == "Z")
+                    {
+                    nhap2 += "int.Parse(Console.ReadLine());";
+                    }
+                    else if (vari[i + 1] == "B")
+                    {
+                    nhap2 += "bool.Parse(Console.ReadLine());";
+                    }
+                    input.Add(nhap2);
+                }
+                input.Add("\t\t}");
+                     
+        }
+        public void HamXuat(List<string> input, string namepath)
+        {
+            string[] path = namepath.Split(new[] { "(", ")" }, StringSplitOptions.None);
+
+            string[] result_char = path[2].Split(new[] { ":" }, StringSplitOptions.None);
+
+
+            input.Add(SetNamePG("Xuat", path[0], path[2]));
+            input.Add("\t\t{");
+
+                // nội dung hàm nhập
+                for (int i = 0; i < result_char.Length; i += 2)
+                {
+                    string nhap = string.Format("\t\t\tConsole.WriteLine(" + "\"Ket qua la: \" + {0});", result_char[i]);
+                input.Add(nhap);
+                }
+            input.Add("\t\t}");
+            
+                
+           
+        }
     }
     
 
