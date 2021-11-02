@@ -39,6 +39,7 @@ namespace DacTa
             this.btnBUILD = new System.Windows.Forms.Button();
             this.textINPUT = new System.Windows.Forms.RichTextBox();
             this.textOUTPUT = new System.Windows.Forms.RichTextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,7 +102,7 @@ namespace DacTa
             // 
             // btnBUILD
             // 
-            this.btnBUILD.Location = new System.Drawing.Point(435, 120);
+            this.btnBUILD.Location = new System.Drawing.Point(318, 139);
             this.btnBUILD.Name = "btnBUILD";
             this.btnBUILD.Size = new System.Drawing.Size(75, 23);
             this.btnBUILD.TabIndex = 3;
@@ -125,12 +126,22 @@ namespace DacTa
             this.textOUTPUT.TabIndex = 5;
             this.textOUTPUT.Text = "";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(482, 139);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Run";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSalmon;
             this.ClientSize = new System.Drawing.Size(1338, 747);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textOUTPUT);
             this.Controls.Add(this.textINPUT);
             this.Controls.Add(this.btnBUILD);
@@ -159,6 +170,7 @@ namespace DacTa
         private System.Windows.Forms.Button btnBUILD;
         private System.Windows.Forms.RichTextBox textINPUT;
         private System.Windows.Forms.RichTextBox textOUTPUT;
+        private System.Windows.Forms.Button button1;
     }
 }
 

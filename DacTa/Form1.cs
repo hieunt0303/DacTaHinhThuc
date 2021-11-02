@@ -36,7 +36,7 @@ namespace DacTa
 
         NameFunction namefun = new NameFunction();
         PreFunction prefun = new PreFunction();
-
+        PostFunction postfun = new PostFunction();
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -63,7 +63,7 @@ namespace DacTa
             postPath = cut.Substring(postX,last-postX);
 
         }
-        //hàm xác định loại tham số đầu vào
+        //hàm test xác định loại tham số đầu vào
         private void SetVari(string arry)
         {
             string nhap = "";
@@ -87,11 +87,7 @@ namespace DacTa
                 }
             }
         }
-        // test thử hàm nhập 
        
-        // ham xuat
-       
-    
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -106,50 +102,21 @@ namespace DacTa
                 SetFunctionPath();
                 namefun.HamNhap(Output, namePath);
                 namefun.HamXuat(Output, namePath);
+                prefun.CheckState(Output, prePath);
+                postfun.SetStatement(Output, postPath, namePath);
                 namefun.SetMain(Output, namePath);
 
 
-
                 textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
+
+                CheckText();
             }
 
-
-            
-
-            
-
+         
+           
 
         }
-        //hàm tách các phần input 
         
-        //test hàm check tên chương trình
-        private int  CheckLoai(string str)
-        {
-            if (str == "Max2So")
-            {
-                // textOUTPUT.Text = "fuction tim max 2 so";
-                loai = 1;
-            }
-
-            else if (str == "Giaiptbac1")
-            {
-                //textOUTPUT.Text = "fuction giai pt bac 1";
-                loai = 2;
-            }
-            else if (str == "XeploaiHS")
-            {
-                textOUTPUT.Text = "fuction xep loai";
-                loai = 3;
-            }
-
-            else
-                //textOUTPUT.Text = "khong xac dinh dc";
-                loai = 0;
-
-            return loai;
-
-
-        }
         
         //test hàm gắn thân OutPut dựa qua tên chương trình 
         public void Setoutput(List<string> input)
@@ -229,6 +196,7 @@ namespace DacTa
                 richTextBox = temp;
             }
         }
+        // hàm check các ký tự toán tử
         public static bool hasSpecialChar(string input)
         {
             string[] checkstr = { "\t", "\n", "(", ")", ":", "&", " ", "=" };
@@ -239,6 +207,7 @@ namespace DacTa
             }
             return false;
         }
+        // hàm check các loại 
         public String[] CaseText(int CaseColor)
         {
             string[] str = { };

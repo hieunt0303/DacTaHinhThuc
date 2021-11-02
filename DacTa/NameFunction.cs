@@ -8,12 +8,13 @@ namespace DacTa
 {
     public class NameFunction
     {
-        string NameFunc;
-        string txtOut;
-        string loai;
-        string[] stringOut;
-        string namePG;       
-        string namepath;
+        public string NameFunc;
+        public string txtOut;
+        public string loai;
+        public string[] stringOut;
+        public string namePG;
+        public string namepath;
+        public string statement;
 
        
         // hàm chung output tên hàm 
