@@ -48,17 +48,19 @@ namespace DacTa
         }
 
         // hàm chia các phần name,pre,post
-        private void SetFunction()
+        public void SetFunctionPath()
         {
             int postX;
             int preX;
+            int last;
             inputPath = textINPUT.Text;
-            string cut = inputPath.Replace("\n", " ").Replace(" ",string.Empty);
+            string cut = inputPath.Replace("\n", string.Empty).Replace("\t", string.Empty).Replace("\r", string.Empty).Replace(" ", string.Empty);
             preX = cut.IndexOf("pre");
             postX = cut.IndexOf("post");
+            last = cut.Length;
             namePath = cut.Substring(0, preX);
-            prePath = cut.Substring(preX, postX);
-            postPath = cut.Substring(postX);
+            prePath = cut.Substring(preX, postX-preX);
+            postPath = cut.Substring(postX,last-postX);
 
         }
         //hàm xác định loại tham số đầu vào
@@ -86,209 +88,40 @@ namespace DacTa
             }
         }
         // test thử hàm nhập 
-        private void HamNhap(List<string> input, string str2, int loai)
-        {
-
-            string nhap = "";
-            string nhap2 = "";
-            string ts = "";
-            string[] temp1 = str2.Split(new[] { ",", ":", "(", ")" }, StringSplitOptions.None);
-
-            for (int i = 1; i < temp1.Length; i++)
-            {
-                if (temp1[i] == "R")
-                {
-                    nhap = "int" + temp[i - 1];
-                    nhap2 = "int";
-
-                }
-                else if (temp1[i] == "N")
-                {
-                    nhap = "double" + temp[i - 1];
-                    nhap2 = "double";
-                }
-                else if (temp1[i] == "char")
-                {
-                    nhap = "char" + temp[i - 1];
-
-                }
-            }
-
-
-            if (loai == 1)   // xet 2 ham Max2so + Max2SoDuong
-            {
-
-                string tenham = string.Format(" \t\t public void Nhap(ref {0} {1} ,ref {0} {2}) ", nhap2, temp1[1], temp1[3]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" nhap {0} \");", temp1[1]);
-                string doc1 = string.Format("\t\t\t {0} = {1}.Parse(Console.Readline()); ", temp1[1], nhap2);
-                string loainhap2 = string.Format("\t\t\t Console.WriteLine( \" nhap {0} \");", temp1[3]);
-                string doc2 = string.Format("\t\t\t {0} = {1}.Parse(Console.Readline()); ", temp1[3], nhap2);
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-                input.Add(doc1);
-                input.Add(loainhap2);
-                input.Add(doc2);
-                input.Add("\t\t}");
-            }
-            else if (loai == 2)  // pt bac 1
-            {
-                string tenham = string.Format(" \t\t public void Nhap(ref {0} {1} ,ref {0} {2}) ", nhap2, temp1[1], temp1[3]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" nhap {0} \");", temp1[1]);
-                string doc1 = string.Format("\t\t\t {0} = {1}.Parse(Console.Readline()); ", temp1[1], nhap2);
-                string loainhap2 = string.Format("\t\t\t Console.WriteLine( \" nhap {0} \");", temp1[3]);
-                string doc2 = string.Format("\t\t\t {0} = {1}.Parse(Console.Readline()); ", temp1[3], nhap2);
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-                input.Add(doc1);
-                input.Add(loainhap2);
-                input.Add(doc2);
-                input.Add("\t\t}");
-            }
-            else if (loai == 3)  // xep loai hs
-            {
-                string tenham = string.Format(" \t\t public void Nhap(ref {0} {1} ,ref {0} {2}) ", nhap2, temp1[1], temp1[3]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" nhap diem {0} \");", temp1[1]);
-                string doc1 = string.Format("\t\t\t {0} = {1}.Parse(Console.Readline()); ", temp1[1], nhap2);
-
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-                input.Add(doc1);
-                input.Add("\t\t}");
-            }
-            else if (loai == 4) // nam nhuan
-            {
-                string tenham = string.Format(" \t\t public void Nhap(ref {0} {1} ,ref {0} {2}) ", nhap2, temp1[1], temp1[3]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" nhap nam {0} \");", temp1[1]);
-                string doc1 = string.Format("\t\t\t {0} = {1}.Parse(Console.Readline()); ", temp1[1], nhap2);
-
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-                input.Add(doc1);
-                input.Add("\t\t}");
-            }
-
-        }
+       
         // ham xuat
-        private void HamXuat(List<string> input, int loai, string str2)
-        {
-            string nhap = "";
-            string nhap2 = "";
-            string ts = "";
-            string[] temp1 = str2.Split(new[] { ",", ":", "(", ")" }, StringSplitOptions.None);
-
-            for (int i = 1; i < temp1.Length; i++)
-            {
-                if (temp1[i] == "R")
-                {
-                    nhap = "int" + temp[i - 1];
-                    nhap2 = "int";
-
-                }
-                else if (temp1[i] == "N")
-                {
-                    nhap = "double" + temp[i - 1];
-                    nhap2 = "double";
-                }
-                else if (temp1[i] == "char")
-                {
-                    nhap = "char" + temp[i - 1];
-
-                }
-                // gan noi dung 
-            }
-            if (loai == 1)   // xet 2 ham Max2so + Max2SoDuong
-            {
-
-                string tenham = string.Format(" \t\t public void Xuat(ref {0} {1}) ", nhap2, temp1[5]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" ket qua la {0} \",{0});", temp1[5]);          
-
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-               
-                input.Add("\t\t}");
-            }
-            else if (loai == 2)  // pt bac 1
-            {
-                string tenham = string.Format(" \t\t public void Xuat(ref {0} {1}) ", nhap2, temp1[5]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" ket qua la : {0} \",{0});", temp1[4]);
-
-
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-
-
-                input.Add("\t\t}");
-            }
-            else if (loai == 3)  // xep loai hs
-            {
-                string tenham = string.Format(" \t\t public void Xuat(ref {0} {1}) ", nhap2, temp1[5]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" xep loai la {0} \",{0});", temp1[4]);
-
-
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-
-                input.Add("\t\t}");
-            }
-            else if (loai == 4) // nam nhuan
-            {
-                string tenham = string.Format(" \t\t public void Xuat(ref {0} {1}) ", nhap2, temp1[5]);
-                string loainhap1 = string.Format("\t\t\t Console.WriteLine( \" nhap nam {0} \");", temp1[4]);
-
-
-                input.Add(tenham);
-                input.Add("\t\t{");
-                input.Add(loainhap1);
-
-                input.Add("\t\t}");
-            }
-        }
+       
     
 
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            string[] line = textINPUT.Text.Split("/n");
-            //hàm split tách lấy tên hàm 
-            check1 = line[0].IndexOf("(");
-            check2 = line[0].Length;
-            str1 = line[0].Substring(0, check1);
-            // tách tham số đầu vào 
-            str2 = line[0].Substring(check1);
-            temp = str2.Split(new[] { ",", ":","(",")" }, StringSplitOptions.None);
-            //SetVari(str2);
+            if (textINPUT.Text == " ")
+                textOUTPUT.Text = " ";
+            else
+            {
+                List<string> Output = new List<string>();
+                Setoutput(Output);
+                SetFunctionPath();
+                namefun.HamNhap(Output, namePath);
+                namefun.HamXuat(Output, namePath);
+                namefun.SetMain(Output, namePath);
 
-            CheckLoai(str1);
-            Setoutput(str1);
-            HamNhap(OutPut, str2, loai);
-            HamXuat(OutPut, loai, str2);
-            CheckText();
+
+
+                textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
+            }
 
 
             
 
-            textOUTPUT.Text = string.Join(Environment.NewLine, OutPut.ToArray());
-            //textOUTPUT.Text = string.Join(Environment.NewLine, temp.ToArray());
+            
 
 
         }
         //hàm tách các phần input 
-        private void DivINPUT()
-        {
-            /*string[] line = textINPUT.Text.Split("/n");
-            check1 = line[0].IndexOf("(");
-            str1 = line[0].Substring(0, check1);
-            str2 = line[0].Substring(check1, line[0].Length);*/
-
-        }
+        
         //test hàm check tên chương trình
         private int  CheckLoai(string str)
         {
@@ -317,47 +150,16 @@ namespace DacTa
 
 
         }
-        private void CheckTS(string strr,int a)
-        {
-            int TS=0;
-            var  c = ":";
-            string[] kiemtra = strr.Split();
-            for(int i =0; i < strr.Length; i++)
-            {
-                
-
-            }
-        }
+        
         //test hàm gắn thân OutPut dựa qua tên chương trình 
-        private void Setoutput(string str)
+        public void Setoutput(List<string> input)
         {
-            OutPut.Add("using System;");
-            if (CheckLoai(str1) == 1)
-            {
-                OutPut.Add("Namepsace TimMax2So");
-                OutPut.Add("{");
-                OutPut.Add("\t Public Class Max2So");
-            }
-            else if (CheckLoai(str1) == 2)
-            {
-                OutPut.Add("Namepsace GiaiPTbac1");
-                OutPut.Add("{");
-                OutPut.Add("\t Public Class giaipt1");
-            }
-            else if (CheckLoai(str1) == 3)
-            {
-                OutPut.Add("Namepsace XepLoai");
-                OutPut.Add("{");
-                OutPut.Add("\t Public Class XepLoaiHS");
-            }
-            else
-            {
-                OutPut.Add("Namepsace Test");
-                OutPut.Add("{");
-                OutPut.Add("\t Public Class Test");
-            }
-            OutPut.Add("\t\t{");
-            
+            input.Add("using System;");
+            input.Add("namespace FormalSpecification");
+            input.Add("{");//name space
+            input.Add(string.Format("\tpublic class Program"));
+            input.Add("\t{");
+
 
         }
       
