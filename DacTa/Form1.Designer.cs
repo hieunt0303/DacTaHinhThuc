@@ -39,7 +39,10 @@ namespace DacTa
             this.btnBUILD = new System.Windows.Forms.Button();
             this.textINPUT = new System.Windows.Forms.RichTextBox();
             this.textOUTPUT = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
+            this.txbNameFile = new System.Windows.Forms.TextBox();
+            this.txtInfo = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -114,7 +117,7 @@ namespace DacTa
             // 
             this.textINPUT.Location = new System.Drawing.Point(12, 200);
             this.textINPUT.Name = "textINPUT";
-            this.textINPUT.Size = new System.Drawing.Size(457, 535);
+            this.textINPUT.Size = new System.Drawing.Size(618, 371);
             this.textINPUT.TabIndex = 4;
             this.textINPUT.Text = "";
             // 
@@ -126,14 +129,44 @@ namespace DacTa
             this.textOUTPUT.TabIndex = 5;
             this.textOUTPUT.Text = "";
             // 
-            // button1
+            // btnRun
             // 
-            this.button1.Location = new System.Drawing.Point(482, 139);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Run";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRun.Location = new System.Drawing.Point(482, 139);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(75, 23);
+            this.btnRun.TabIndex = 6;
+            this.btnRun.Text = "Run";
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // txbNameFile
+            // 
+            this.txbNameFile.Location = new System.Drawing.Point(36, 137);
+            this.txbNameFile.Name = "txbNameFile";
+            this.txbNameFile.Size = new System.Drawing.Size(157, 25);
+            this.txbNameFile.TabIndex = 7;
+            this.txbNameFile.Text = "Name file";
+            this.txbNameFile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txbNameFile_MouseClick);
+            // 
+            // txtInfo
+            // 
+            this.txtInfo.Location = new System.Drawing.Point(12, 598);
+            this.txtInfo.Name = "txtInfo";
+            this.txtInfo.Size = new System.Drawing.Size(618, 146);
+            this.txtInfo.TabIndex = 8;
+            this.txtInfo.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(12, 576);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 19);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Output Information";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -141,7 +174,10 @@ namespace DacTa
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSalmon;
             this.ClientSize = new System.Drawing.Size(1338, 747);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtInfo);
+            this.Controls.Add(this.txbNameFile);
+            this.Controls.Add(this.btnRun);
             this.Controls.Add(this.textOUTPUT);
             this.Controls.Add(this.textINPUT);
             this.Controls.Add(this.btnBUILD);
@@ -156,6 +192,7 @@ namespace DacTa
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -170,7 +207,10 @@ namespace DacTa
         private System.Windows.Forms.Button btnBUILD;
         private System.Windows.Forms.RichTextBox textINPUT;
         private System.Windows.Forms.RichTextBox textOUTPUT;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRun;
+        private System.Windows.Forms.TextBox txbNameFile;
+        private System.Windows.Forms.RichTextBox txtInfo;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.CodeDom.Compiler;
+using System.Diagnostics;
+using Microsoft.CSharp;
 
 
 namespace DacTa
@@ -21,13 +24,9 @@ namespace DacTa
         List<string> OutPut = new List<string>();
 
 
-        string[] temp;  // mảng giữ biến
-        string str1;
+        string[] temp;  // mảng giữ biến   
         string str2;
-        int check1;
-        int check2;
-        string kq;
-        int loai;
+             
         string inputPath;
 
         string namePath;
@@ -105,6 +104,8 @@ namespace DacTa
                 prefun.CheckState(Output, prePath);
                 postfun.SetStatement(Output, postPath, namePath);
                 namefun.SetMain(Output, namePath);
+                Output.Add("\t}");
+                Output.Add("}");
 
 
                 textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
@@ -241,6 +242,46 @@ namespace DacTa
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+            CSharpCodeProvider code = new CSharpCodeProvider();
+            ICodeCompiler icc = code.CreateCompiler();
+            string Output = "Out.exe";
+            Button ButtonObject = (Button)sender;
+
+            txtInfo.Text = "";
+            CompilerParameters parameters = new CompilerParameters();
+           
+            parameters.GenerateExecutable = true;
+            parameters.OutputAssembly = Output;
+            CompilerResults results = icc.CompileAssemblyFromSource(parameters, textOUTPUT.Text);
+
+            if (results.Errors.Count > 0)
+            {
+                txtInfo.ForeColor = Color.Red;
+                foreach (CompilerError CompErr in results.Errors)
+                {
+                    txtInfo.Text = txtInfo.Text +
+                                "Line number " + CompErr.Line +
+                                ", Error Number: " + CompErr.ErrorNumber +
+                                ", '" + CompErr.ErrorText + ";" +
+                                Environment.NewLine + Environment.NewLine;
+                }
+            }
+            else
+            {
+                //Successful Compile
+                
+                if (ButtonObject.Text == "Run") Process.Start(Output);
+            }
+        }
+
+        private void txbNameFile_MouseClick(object sender, MouseEventArgs e)
+        {
+            txbNameFile.Clear();
         }
     }
 }

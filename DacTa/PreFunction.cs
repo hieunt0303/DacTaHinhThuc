@@ -8,7 +8,7 @@ namespace DacTa
     {
         public string state;
 
-        //testing pre class  Max2SO   //can them ham tao ten ham chung
+        
         public void CheckState(List<string> input,string pre)
         {
             input.Add("Public int Kiemtra(ref int a,ref int b) ");
@@ -20,6 +20,7 @@ namespace DacTa
                 if (check == "")
                 {
                      input.Add("\t\t\treturn 1;");
+                input.Add("\t\t}");
                 }
                 else
                 {
