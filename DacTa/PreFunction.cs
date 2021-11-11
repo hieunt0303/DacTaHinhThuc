@@ -4,19 +4,23 @@ using System.Text;
 
 namespace DacTa
 {
-    public class PreFunction
+    public class PreFunction:NameFunction
     {
         public string state;
 
         
-        public void CheckState(List<string> input,string pre)
+        public void CheckState(List<string> input,string pre,string namepath)
         {
-            input.Add("Public int Kiemtra(ref int a,ref int b) ");
+            string[] path = namepath.Split(new[] { "(", ")" }, StringSplitOptions.None);
+            
+
+            input.Add(SetNamePG("KiemTra",namepath,path[1]));
             input.Add("\t\t{");
             
             
                 string check  = pre;
                 check = pre.Replace("pre", "").Replace(" ", string.Empty);
+
                 if (check == "")
                 {
                      input.Add("\t\t\treturn 1;");

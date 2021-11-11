@@ -101,7 +101,7 @@ namespace DacTa
                 SetFunctionPath();
                 namefun.HamNhap(Output, namePath);
                 namefun.HamXuat(Output, namePath);
-                prefun.CheckState(Output, prePath);
+                prefun.CheckState(Output, prePath,namePath);
                 postfun.SetStatement(Output, postPath, namePath);
                 namefun.SetMain(Output, namePath);
                 Output.Add("\t}");
@@ -247,14 +247,14 @@ namespace DacTa
         private void button1_Click_1(object sender, EventArgs e)
         {
 
-            CSharpCodeProvider code = new CSharpCodeProvider();
-            ICodeCompiler icc = code.CreateCompiler();
+            CSharpCodeProvider codeProvider = new CSharpCodeProvider();
+            ICodeCompiler icc = codeProvider.CreateCompiler();
             string Output = "Out.exe";
             Button ButtonObject = (Button)sender;
 
             txtInfo.Text = "";
-            CompilerParameters parameters = new CompilerParameters();
-           
+            System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
+            //Make sure we generate an EXE, not a DLL
             parameters.GenerateExecutable = true;
             parameters.OutputAssembly = Output;
             CompilerResults results = icc.CompileAssemblyFromSource(parameters, textOUTPUT.Text);
@@ -274,7 +274,9 @@ namespace DacTa
             else
             {
                 //Successful Compile
-                
+                //textBox2.ForeColor = Color.Blue;
+                //textBox2.Text = "Success!";
+                //If we clicked run then launch our EXE
                 if (ButtonObject.Text == "Run") Process.Start(Output);
             }
         }
