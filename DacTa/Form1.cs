@@ -37,6 +37,10 @@ namespace DacTa
         PreFunction prefun = new PreFunction();
         PostFunction postfun = new PostFunction();
 
+        pyNameFunction pynamefun = new pyNameFunction();
+        pyPreFunction pyprefun = new pyPreFunction();
+        pyPostFunction pypostfun = new pyPostFunction();
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -88,34 +92,51 @@ namespace DacTa
         }
        
 
-
+        // button run
         private void button1_Click(object sender, EventArgs e)
         {
-
             if (textINPUT.Text == " ")
                 textOUTPUT.Text = " ";
             else
             {
-                List<string> Output = new List<string>();
-                Setoutput(Output);
-                SetFunctionPath();
-                namefun.HamNhap(Output, namePath);
-                namefun.HamXuat(Output, namePath);
-                prefun.CheckState(Output, prePath,namePath);
-                postfun.SetStatement(Output, postPath, namePath);
-                namefun.SetMain(Output, namePath);
-                Output.Add("\t}");
-                Output.Add("}");
+                if (comboBox1.Text == "")
+                    MessageBox.Show("Please choose language you want to run.");
+                else
+                {
+                    if (comboBox1.Text == "C#")
+                    {
+                        List<string> Output = new List<string>();
+                        Setoutput(Output);
+                        SetFunctionPath();
+                        namefun.HamNhap(Output, namePath);
+                        namefun.HamXuat(Output, namePath);
+                        prefun.CheckState(Output, prePath, namePath);
+                        postfun.SetStatement(Output, postPath, namePath);
+                        namefun.SetMain(Output, namePath);
+                        Output.Add("\t}");
+                        Output.Add("}");
 
 
-                textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
+                        textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
 
-                CheckText();
+                        CheckText();
+                    }
+                    else if (comboBox1.Text == "Python")
+                    {
+                        List<string> Output = new List<string>();
+                        SetFunctionPath();
+                        pynamefun.HamNhap(Output, namePath);
+                        pynamefun.HamXuat(Output, namePath);
+                        pyprefun.CheckState(Output, prePath, namePath);
+                        pypostfun.SetStatement(Output, postPath, namePath);
+                        pynamefun.SetMain(Output, namePath);
+
+                        textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
+
+                        CheckText();
+                    }
+                }
             }
-
-         
-           
-
         }
         
         
@@ -155,6 +176,7 @@ namespace DacTa
             textOUTPUT.Clear();
 
         }
+       
 
 
         // hàm highlight
@@ -243,9 +265,10 @@ namespace DacTa
         {
 
         }
-
+        // run
         private void button1_Click_1(object sender, EventArgs e)
         {
+            
 
             CSharpCodeProvider codeProvider = new CSharpCodeProvider();
             ICodeCompiler icc = codeProvider.CreateCompiler();
@@ -258,7 +281,7 @@ namespace DacTa
             parameters.GenerateExecutable = true;
             parameters.OutputAssembly = Output;
             CompilerResults results = icc.CompileAssemblyFromSource(parameters, textOUTPUT.Text);
-
+            
             if (results.Errors.Count > 0)
             {
                 txtInfo.ForeColor = Color.Red;
@@ -278,12 +301,49 @@ namespace DacTa
                 //textBox2.Text = "Success!";
                 //If we clicked run then launch our EXE
                 if (ButtonObject.Text == "Run") Process.Start(Output);
+                
             }
         }
 
         private void txbNameFile_MouseClick(object sender, MouseEventArgs e)
         {
             txbNameFile.Clear();
+        }
+
+        private void textOUTPUT_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+           
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
+            if (save_yes_no == DialogResult.Yes)
+            {
+                SaveFileDialog file_save = new SaveFileDialog();
+                if (file_save.ShowDialog() == DialogResult.OK)
+                {
+                    //yes ???
+
+                    FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter m_WriterParameter = new StreamWriter(fParameter);
+                    m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
+                    m_WriterParameter.Write(textOUTPUT.Text);
+                    m_WriterParameter.Flush();
+                    m_WriterParameter.Close();
+                }
+            }
+            else
+            {
+                //no ???
+                
+
+            }
         }
     }
 }

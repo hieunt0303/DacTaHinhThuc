@@ -13,3 +13,18 @@ C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\netcoreapp3.1\DacTa.csproj.CoreCo
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\netcoreapp3.1\DacTa.dll
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\netcoreapp3.1\DacTa.pdb
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\netcoreapp3.1\DacTa.genruntimeconfig.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\netcoreapp3.1\DacTa.exe
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\netcoreapp3.1\DacTa.deps.json
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\netcoreapp3.1\DacTa.runtimeconfig.json
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\netcoreapp3.1\DacTa.runtimeconfig.dev.json
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\netcoreapp3.1\DacTa.dll
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\netcoreapp3.1\DacTa.pdb
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.Form1.resources
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.csproj.GenerateResource.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.AssemblyInfoInputs.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.AssemblyInfo.cs
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.dll
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.pdb
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\netcoreapp3.1\DacTa.genruntimeconfig.cache
