@@ -161,7 +161,7 @@ namespace DacTa
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileName = openFileDialog.FileName;
-               
+                txbNameFile.Text = fileName;
                 StreamReader readFile = new StreamReader(fileName);
                 textINPUT.Text = readFile.ReadToEnd();
                 readFile.Close();
@@ -340,10 +340,77 @@ namespace DacTa
             }
             else
             {
-                //no ???
+                
                 
 
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
+            if (save_yes_no == DialogResult.Yes)
+            {
+                SaveFileDialog file_save = new SaveFileDialog();
+                if (file_save.ShowDialog() == DialogResult.OK)
+                {
+                    
+
+                    FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter m_WriterParameter = new StreamWriter(fParameter);
+                    m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
+                    m_WriterParameter.Write(textOUTPUT.Text);
+                    m_WriterParameter.Flush();
+                    m_WriterParameter.Close();
+                }
+            }
+            else
+            {
+
+
+
+            }
+        }
+
+        private void txbNameFile_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOPEN_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string fileName;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                fileName = openFileDialog.FileName;
+                txbNameFile.Text = fileName;
+                StreamReader readFile = new StreamReader(fileName);
+                textINPUT.Text = readFile.ReadToEnd();
+                readFile.Close();
+            }
+            textOUTPUT.Text = "";
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            textINPUT.Clear();
+            textOUTPUT.Clear();
         }
     }
 }
