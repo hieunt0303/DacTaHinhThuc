@@ -2,10 +2,10 @@ C:\Users\PC\source\repos\DacTa\DacTa\bin\Debug\net472\DacTa.exe.config
 C:\Users\PC\source\repos\DacTa\DacTa\bin\Debug\net472\DacTa.exe
 C:\Users\PC\source\repos\DacTa\DacTa\bin\Debug\net472\DacTa.pdb
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.csproj.AssemblyReference.cache
-C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.Form1.resources
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.csproj.GenerateResource.cache
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.AssemblyInfoInputs.cache
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.AssemblyInfo.cs
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.csproj.CoreCompileInputs.cache
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.exe
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.pdb
+C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.Main.resources

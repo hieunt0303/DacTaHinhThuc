@@ -15,20 +15,17 @@ using Microsoft.CSharp;
 
 namespace DacTa
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }
         List<string> OutPut = new List<string>();
 
-
-        string[] temp;  // mảng giữ biến   
-        string str2;
-             
+        string[] temp;
+        string str2;           
         string inputPath;
-
         string namePath;
         string prePath;
         string postPath;
@@ -40,15 +37,7 @@ namespace DacTa
         pyNameFunction pynamefun = new pyNameFunction();
         pyPreFunction pyprefun = new pyPreFunction();
         pyPostFunction pypostfun = new pyPostFunction();
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
+   
 
         // hàm chia các phần name,pre,post
         public void SetFunctionPath()
@@ -118,7 +107,7 @@ namespace DacTa
 
 
                         textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
-
+                        
                         CheckText();
                     }
                     else if (comboBox1.Text == "Python")
@@ -158,10 +147,13 @@ namespace DacTa
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             string fileName;
+            string name;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 fileName = openFileDialog.FileName;
-                txbNameFile.Text = fileName;
+                int last = fileName.LastIndexOf("\\");
+                name = fileName.Substring(last + 1);
+                txbNameFile.Text = name;
                 StreamReader readFile = new StreamReader(fileName);
                 textINPUT.Text = readFile.ReadToEnd();
                 readFile.Close();
@@ -268,58 +260,133 @@ namespace DacTa
         // run
         private void button1_Click_1(object sender, EventArgs e)
         {
-            
 
-            CSharpCodeProvider codeProvider = new CSharpCodeProvider();
-            ICodeCompiler icc = codeProvider.CreateCompiler();
-            string Output = "Out.exe";
-            Button ButtonObject = (Button)sender;
-
-            txtInfo.Text = "";
-            System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
-            //Make sure we generate an EXE, not a DLL
-            parameters.GenerateExecutable = true;
-            parameters.OutputAssembly = Output;
-            CompilerResults results = icc.CompileAssemblyFromSource(parameters, textOUTPUT.Text);
             
-            if (results.Errors.Count > 0)
+                CSharpCodeProvider codeProvider = new CSharpCodeProvider();
+                ICodeCompiler icc = codeProvider.CreateCompiler();
+                string Output = "Out.exe";
+                Button ButtonObject = (Button)sender;
+
+                txtInfo.Text = "";
+               
+            // Run follow   language that choose
+           if (comboBox1.Text == "C#")
             {
-                txtInfo.ForeColor = Color.Red;
-                foreach (CompilerError CompErr in results.Errors)
+                System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
+                //Make sure we generate an EXE, not a DLL
+                parameters.GenerateExecutable = true;
+                parameters.OutputAssembly = Output;
+
+                CompilerResults results = icc.CompileAssemblyFromSource(parameters, textOUTPUT.Text);
+
+                if (results.Errors.Count > 0)
                 {
-                    txtInfo.Text = txtInfo.Text +
-                                "Line number " + CompErr.Line +
-                                ", Error Number: " + CompErr.ErrorNumber +
-                                ", '" + CompErr.ErrorText + ";" +
-                                Environment.NewLine + Environment.NewLine;
+                    txtInfo.ForeColor = Color.Red;
+                    foreach (CompilerError CompErr in results.Errors)
+                    {
+                        txtInfo.Text = txtInfo.Text +
+                                    "Line number " + CompErr.Line +
+                                    ", Error Number: " + CompErr.ErrorNumber +
+                                    ", '" + CompErr.ErrorText + ";" +
+                                    Environment.NewLine + Environment.NewLine;
+                    }
+                }
+                else
+                {
+                    //Successful Compile
+
+                    if (ButtonObject.Text == "Run") Process.Start(Output);
+
                 }
             }
-            else
+
+           //              to run python on console we have to save as python file then call from console code
+            else if(comboBox1.Text=="Python")
             {
-                //Successful Compile
-                //textBox2.ForeColor = Color.Blue;
-                //textBox2.Text = "Success!";
-                //If we clicked run then launch our EXE
-                if (ButtonObject.Text == "Run") Process.Start(Output);
-                
+
+                //                             save and get py to file for run in console                                      //
+                string address;              
+                SaveFileDialog py_save = new SaveFileDialog();
+                if (py_save.ShowDialog() == DialogResult.OK)
+                {
+                   
+
+                    FileStream fParameter = new FileStream(py_save.FileName + ".py", FileMode.Create, FileAccess.Write);
+                    StreamWriter m_WriterParameter = new StreamWriter(fParameter);
+                    m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
+                    m_WriterParameter.Write(textOUTPUT.Text);
+                    m_WriterParameter.Flush();
+                    m_WriterParameter.Close();
+                    address = py_save.FileName;
+
+                    //              code is string of code console run python  
+                    List<string> code = PythonRun(address);
+                    string pythoncode = string.Join(Environment.NewLine, code.ToArray());
+
+                    //     have to put parameter DLL to run System.Diagnostics in console code
+                    System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "System.dll" });                
+                    parameters.GenerateExecutable = true;
+                    parameters.OutputAssembly = Output;
+                    CompilerResults results = icc.CompileAssemblyFromSource(parameters, pythoncode);
+
+                    if (results.Errors.Count > 0)
+                    {
+                        txtInfo.ForeColor = Color.Red;
+                        foreach (CompilerError CompErr in results.Errors)
+                        {
+                            txtInfo.Text = txtInfo.Text +
+                                        "Line number " + CompErr.Line +
+                                        ", Error Number: " + CompErr.ErrorNumber +
+                                        ", '" + CompErr.ErrorText + ";" +
+                                        Environment.NewLine + Environment.NewLine;
+                        }
+                    }
+                    else
+                    {
+                        //Successful Compile
+
+                        if (ButtonObject.Text == "Run") Process.Start(Output);
+
+                    }
+                }
+                else { }
+                             
             }
         }
-
-        private void txbNameFile_MouseClick(object sender, MouseEventArgs e)
+        //                                build console code to run python in console
+        private List<string> PythonRun(string a)
         {
-            txbNameFile.Clear();
+            List<string> python = new List<string>();
+            string add = "\t\t\t\tstartInfo.Arguments = @\"" + a + "\"; ";
+
+            python.Add("using System;");
+            python.Add("using System.Diagnostics;");
+            python.Add("namespace Formular");
+            python.Add("{");
+            python.Add("\tclass Program");
+            python.Add("\t\t{");
+            python.Add("\t\tstatic void Main(string[] args)");
+            python.Add("\t\t\t{");
+            python.Add("\t\t\t\tExecProcess();");
+            python.Add("\t\t\t}");
+            python.Add("\t\tstatic void ExecProcess()");
+            python.Add("\t\t\t{");
+            python.Add("\t\t\t\tProcess process = new Process();");
+            python.Add("\t\t\t\tProcessStartInfo startInfo = new ProcessStartInfo();");
+            python.Add("\t\t\t\tstartInfo.WindowStyle = ProcessWindowStyle.Hidden;");
+            python.Add("\t\t\t\tstartInfo.FileName = @\"C:\\Python27\\python.exe\";");
+            python.Add(add);
+            python.Add("\t\t\t\tprocess.StartInfo = startInfo;");
+            python.Add("\t\t\t\tprocess.Start();");
+            python.Add("\t\t\t}");
+            python.Add("\t\t}");
+            python.Add("}");
+
+
+            return python;
         }
-
-        private void textOUTPUT_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-           
-        }
-
+        //                     
+        
         private void buttonSave_Click(object sender, EventArgs e)
         {
             DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
@@ -374,12 +441,25 @@ namespace DacTa
                     m_WriterParameter.Close();
                 }
             }
-            else
+            else {  }
+        }
+
+        private void btnOPEN_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string fileName;
+            string name;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-
-
-
+                fileName = openFileDialog.FileName;
+                int last = fileName.LastIndexOf("\\");
+                name = fileName.Substring(last + 1);
+                txbNameFile.Text = name;
+                StreamReader readFile = new StreamReader(fileName);
+                textINPUT.Text = readFile.ReadToEnd();
+                readFile.Close();
             }
+            textOUTPUT.Text = "";
         }
 
         private void txbNameFile_TextChanged(object sender, EventArgs e)
@@ -391,26 +471,44 @@ namespace DacTa
         {
 
         }
-
-        private void btnOPEN_Click(object sender, EventArgs e)
+       
+        private void txbNameFile_MouseClick(object sender, MouseEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            string fileName;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                fileName = openFileDialog.FileName;
-                txbNameFile.Text = fileName;
-                StreamReader readFile = new StreamReader(fileName);
-                textINPUT.Text = readFile.ReadToEnd();
-                readFile.Close();
-            }
-            textOUTPUT.Text = "";
+            txbNameFile.Clear();
         }
 
         private void button1_Click_2(object sender, EventArgs e)
         {
             textINPUT.Clear();
             textOUTPUT.Clear();
+        }
+        
+        private void textOUTPUT_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btxEXIT_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("code and debug with depression :(( ");
         }
     }
 }

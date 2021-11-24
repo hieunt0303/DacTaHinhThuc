@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DacTa
 {
-    public class NameFunction
+    public class NameFunction 
     {
         public string NameFunc;
         public string txtOut;
@@ -16,7 +16,7 @@ namespace DacTa
         public string namepath;
         public string statement;
 
-       
+        
         // hàm chung output tên hàm 
         public string  SetNamePG(string NameFunc,string namePath,string loai)
         {

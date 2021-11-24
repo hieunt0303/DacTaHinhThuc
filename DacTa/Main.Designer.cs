@@ -1,7 +1,7 @@
 ﻿
 namespace DacTa
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         ///  Required designer variable.
@@ -36,6 +36,7 @@ namespace DacTa
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnBUILD = new System.Windows.Forms.Button();
             this.textINPUT = new System.Windows.Forms.RichTextBox();
             this.textOUTPUT = new System.Windows.Forms.RichTextBox();
@@ -51,7 +52,7 @@ namespace DacTa
             this.label4 = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btxEXIT = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -93,34 +94,41 @@ namespace DacTa
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // btnBUILD
             // 
             this.btnBUILD.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnBUILD.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnBUILD.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
             this.btnBUILD.ForeColor = System.Drawing.Color.Azure;
             this.btnBUILD.Location = new System.Drawing.Point(191, 106);
             this.btnBUILD.Name = "btnBUILD";
@@ -150,7 +158,7 @@ namespace DacTa
             // btnRun
             // 
             this.btnRun.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnRun.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRun.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
             this.btnRun.ForeColor = System.Drawing.Color.DimGray;
             this.btnRun.Location = new System.Drawing.Point(315, 106);
             this.btnRun.Name = "btnRun";
@@ -181,7 +189,7 @@ namespace DacTa
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(12, 576);
             this.label1.Name = "label1";
@@ -267,7 +275,7 @@ namespace DacTa
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.Crimson;
             this.label5.Location = new System.Drawing.Point(539, 164);
             this.label5.Name = "label5";
@@ -275,11 +283,16 @@ namespace DacTa
             this.label5.TabIndex = 17;
             this.label5.Text = "HnA team";
             // 
-            // aboutToolStripMenuItem
+            // btxEXIT
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.btxEXIT.BackColor = System.Drawing.Color.LightCyan;
+            this.btxEXIT.Location = new System.Drawing.Point(381, 48);
+            this.btxEXIT.Name = "btxEXIT";
+            this.btxEXIT.Size = new System.Drawing.Size(112, 31);
+            this.btxEXIT.TabIndex = 18;
+            this.btxEXIT.Text = "Exit";
+            this.btxEXIT.UseVisualStyleBackColor = false;
+            this.btxEXIT.Click += new System.EventHandler(this.btxEXIT_Click);
             // 
             // Form1
             // 
@@ -287,6 +300,7 @@ namespace DacTa
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSalmon;
             this.ClientSize = new System.Drawing.Size(1350, 781);
+            this.Controls.Add(this.btxEXIT);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.label4);
@@ -303,7 +317,7 @@ namespace DacTa
             this.Controls.Add(this.textINPUT);
             this.Controls.Add(this.btnBUILD);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Font = new System.Drawing.Font("Times New Roman", 11.25F);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Formular Specification";
@@ -341,6 +355,7 @@ namespace DacTa
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btxEXIT;
     }
 }
 
