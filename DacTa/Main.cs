@@ -302,7 +302,7 @@ namespace DacTa
                 }
             }
 
-            //              to run python on console we have to save as python file then call from console code
+            //              to run python on console we have to save as python file 
             else if (comboBox1.Text == "Python")
             {
 
@@ -320,39 +320,11 @@ namespace DacTa
                     address = py_save.FileName;
 
                     // set path python
-                    pathPython = py_save.FileName;
-
-                    //              code is string of code console run python  
-                    List<string> code = PythonRun(address);
-                    string pythoncode = string.Join(Environment.NewLine, code.ToArray());
-
-                    //     have to put parameter DLL to run System.Diagnostics in console code
-                    System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "System.dll" });
-                    parameters.GenerateExecutable = true;
-                    parameters.OutputAssembly = Output;
-                    CompilerResults results = icc.CompileAssemblyFromSource(parameters, pythoncode);
-
-                    if (results.Errors.Count > 0)
-                    {
-                        txtInfo.ForeColor = Color.Red;
-                        foreach (CompilerError CompErr in results.Errors)
-                        {
-                            txtInfo.Text = txtInfo.Text +
-                                        "Line number " + CompErr.Line +
-                                        ", Error Number: " + CompErr.ErrorNumber +
-                                        ", '" + CompErr.ErrorText + ";" +
-                                        Environment.NewLine + Environment.NewLine;
-                        }
-                    }
-                    else
-                    {
-                        //Successful Compile
-
-                        //if (ButtonObject.Text == "Run") Process.Start(Output);
-                        string pathPython = py_save.FileName;
-                        string path = "";
-                        string[] subs = pathPython.Split('\\');
-                        string namePython = subs[subs.Length - 1];
+  
+                string pathPython = py_save.FileName;
+                string path = "";
+                string[] subs = pathPython.Split('\\');
+                string namePython = subs[subs.Length - 1];
 
                         for (var i = 0; i < subs.Length - 1; ++i)
                         {
@@ -363,9 +335,9 @@ namespace DacTa
                             else
                                 path += subs[i];
                         }
-                        string strCmdText = "/K c: && cd/ && cd "+path + "&& python "+namePython+".py";
-                        System.Diagnostics.Process.Start("CMD.exe", strCmdText);
-                    }
+                string strCmdText = "/K c: && cd/ && cd "+path + "&& python "+namePython+".py";
+                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+                    
                 }
                 else { }
 
@@ -373,66 +345,31 @@ namespace DacTa
         }
         public void formatPathPython(string path)
         {
+            //test
             //C:\Users\ASUS\Desktop\namefile
 
         }
-        //                                build console code to run python in console
-        private List<string> PythonRun(string a)
-        {
-            List<string> python = new List<string>();
-            string add = "\t\t\t\tstartInfo.Arguments = @\"" + a + "\"; ";
-
-            python.Add("using System;");
-            python.Add("using System.Diagnostics;");
-            python.Add("namespace Formular");
-            python.Add("{");
-            python.Add("\tclass Program");
-            python.Add("\t\t{");
-            python.Add("\t\tstatic void Main(string[] args)");
-            python.Add("\t\t\t{");
-            python.Add("\t\t\t\tExecProcess();");
-            python.Add("\t\t\t}");
-            python.Add("\t\tstatic void ExecProcess()");
-            python.Add("\t\t\t{");
-            python.Add("\t\t\t\tProcess process = new Process();");
-            python.Add("\t\t\t\tProcessStartInfo startInfo = new ProcessStartInfo();");
-            python.Add("\t\t\t\tstartInfo.WindowStyle = ProcessWindowStyle.Hidden;");
-            python.Add("\t\t\t\tstartInfo.FileName = @\"C:\\Python27\\python.exe\";");
-            python.Add(add);
-            python.Add("\t\t\t\tprocess.StartInfo = startInfo;");
-            python.Add("\t\t\t\tprocess.Start();");
-            python.Add("\t\t\t}");
-            python.Add("\t\t}");
-            python.Add("}");
-
-
-            return python;
-        }
-        //                     
+                           
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            //DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
-            //if (save_yes_no == DialogResult.Yes)
-            //{
-            //    SaveFileDialog file_save = new SaveFileDialog();
-            //    if (file_save.ShowDialog() == DialogResult.OK)
-            //    {
-            //        //yes ???
+            DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
+            if (save_yes_no == DialogResult.Yes)
+            {
+                SaveFileDialog file_save = new SaveFileDialog();
+                if (file_save.ShowDialog() == DialogResult.OK)
+                {
+                    //yes ???
 
-            //        FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
-            //        StreamWriter m_WriterParameter = new StreamWriter(fParameter);
-            //        m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
-            //        m_WriterParameter.Write(textOUTPUT.Text);
-            //        m_WriterParameter.Flush();
-            //        m_WriterParameter.Close();
-            //    }
-            //}
-            string strCmdText;
-            //For Testing
-            strCmdText = "/K ipconfig && g:";
-
-            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+                    FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
+                    StreamWriter m_WriterParameter = new StreamWriter(fParameter);
+                    m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
+                    m_WriterParameter.Write(textOUTPUT.Text);
+                    m_WriterParameter.Flush();
+                   m_WriterParameter.Close();
+                }
+            }
+            
         }
 
         private void label3_Click(object sender, EventArgs e)

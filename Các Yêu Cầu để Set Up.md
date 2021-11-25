@@ -1,6 +1,6 @@
 # DacTaHinhThuc
 
-Cài đặt Python(Khuyến khích Python 27 ) để có đường link C\Python27\python.exe để chạy code python
+Cài đặt Python 
 
 .Net ver 4.7.2 check (nếu khác có thể thay bằng cách nhấp chuột phải project DacTa edit progarm file chỉnh dòng như dưới ):
 <FarmworkTarget>net472</FarmworkTarget>
