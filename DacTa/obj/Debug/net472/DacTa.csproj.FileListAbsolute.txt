@@ -9,3 +9,14 @@ C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.csproj.CoreCompileIn
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.exe
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.pdb
 C:\Users\PC\source\repos\DacTa\DacTa\obj\Debug\net472\DacTa.Main.resources
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\net472\DacTa.exe.config
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\net472\DacTa.exe
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\bin\Debug\net472\DacTa.pdb
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.Main.resources
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.csproj.GenerateResource.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.AssemblyInfoInputs.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.AssemblyInfo.cs
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.exe
+C:\Users\ASUS\Desktop\bibi\0. UIT_Method\4. Nam_3 HK I\Đặc tả\DacTaHinhThuc\DacTa\obj\Debug\net472\DacTa.pdb

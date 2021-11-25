@@ -24,11 +24,13 @@ namespace DacTa
         List<string> OutPut = new List<string>();
 
         string[] temp;
-        string str2;           
+        string str2;
         string inputPath;
         string namePath;
         string prePath;
         string postPath;
+
+        string pathPython = "";
 
         NameFunction namefun = new NameFunction();
         PreFunction prefun = new PreFunction();
@@ -37,7 +39,7 @@ namespace DacTa
         pyNameFunction pynamefun = new pyNameFunction();
         pyPreFunction pyprefun = new pyPreFunction();
         pyPostFunction pypostfun = new pyPostFunction();
-   
+
 
         // hàm chia các phần name,pre,post
         public void SetFunctionPath()
@@ -51,8 +53,8 @@ namespace DacTa
             postX = cut.IndexOf("post");
             last = cut.Length;
             namePath = cut.Substring(0, preX);
-            prePath = cut.Substring(preX, postX-preX);
-            postPath = cut.Substring(postX,last-postX);
+            prePath = cut.Substring(preX, postX - preX);
+            postPath = cut.Substring(postX, last - postX);
 
         }
         //hàm test xác định loại tham số đầu vào
@@ -79,7 +81,7 @@ namespace DacTa
                 }
             }
         }
-       
+
 
         // button run
         private void button1_Click(object sender, EventArgs e)
@@ -107,7 +109,7 @@ namespace DacTa
 
 
                         textOUTPUT.Text = string.Join(Environment.NewLine, Output.ToArray());
-                        
+
                         CheckText();
                     }
                     else if (comboBox1.Text == "Python")
@@ -127,8 +129,8 @@ namespace DacTa
                 }
             }
         }
-        
-        
+
+
         //test hàm gắn thân OutPut dựa qua tên chương trình 
         public void Setoutput(List<string> input)
         {
@@ -140,8 +142,8 @@ namespace DacTa
 
 
         }
-      
-        
+
+
         // nút open file
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -158,7 +160,7 @@ namespace DacTa
                 textINPUT.Text = readFile.ReadToEnd();
                 readFile.Close();
             }
-                       textOUTPUT.Text = "";
+            textOUTPUT.Text = "";
 
         }
 
@@ -168,7 +170,7 @@ namespace DacTa
             textOUTPUT.Clear();
 
         }
-       
+
 
 
         // hàm highlight
@@ -261,16 +263,16 @@ namespace DacTa
         private void button1_Click_1(object sender, EventArgs e)
         {
 
-            
-                CSharpCodeProvider codeProvider = new CSharpCodeProvider();
-                ICodeCompiler icc = codeProvider.CreateCompiler();
-                string Output = "Out.exe";
-                Button ButtonObject = (Button)sender;
 
-                txtInfo.Text = "";
-               
+            CSharpCodeProvider codeProvider = new CSharpCodeProvider();
+            ICodeCompiler icc = codeProvider.CreateCompiler();
+            string Output = "Out.exe";
+            Button ButtonObject = (Button)sender;
+
+            txtInfo.Text = "";
+
             // Run follow   language that choose
-           if (comboBox1.Text == "C#")
+            if (comboBox1.Text == "C#")
             {
                 System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
                 //Make sure we generate an EXE, not a DLL
@@ -300,17 +302,15 @@ namespace DacTa
                 }
             }
 
-           //              to run python on console we have to save as python file then call from console code
-            else if(comboBox1.Text=="Python")
+            //              to run python on console we have to save as python file then call from console code
+            else if (comboBox1.Text == "Python")
             {
 
                 //                             save and get py to file for run in console                                      //
-                string address;              
+                string address;
                 SaveFileDialog py_save = new SaveFileDialog();
                 if (py_save.ShowDialog() == DialogResult.OK)
                 {
-                   
-
                     FileStream fParameter = new FileStream(py_save.FileName + ".py", FileMode.Create, FileAccess.Write);
                     StreamWriter m_WriterParameter = new StreamWriter(fParameter);
                     m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
@@ -319,12 +319,15 @@ namespace DacTa
                     m_WriterParameter.Close();
                     address = py_save.FileName;
 
+                    // set path python
+                    pathPython = py_save.FileName;
+
                     //              code is string of code console run python  
                     List<string> code = PythonRun(address);
                     string pythoncode = string.Join(Environment.NewLine, code.ToArray());
 
                     //     have to put parameter DLL to run System.Diagnostics in console code
-                    System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "System.dll" });                
+                    System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "System.dll" });
                     parameters.GenerateExecutable = true;
                     parameters.OutputAssembly = Output;
                     CompilerResults results = icc.CompileAssemblyFromSource(parameters, pythoncode);
@@ -345,13 +348,33 @@ namespace DacTa
                     {
                         //Successful Compile
 
-                        if (ButtonObject.Text == "Run") Process.Start(Output);
+                        //if (ButtonObject.Text == "Run") Process.Start(Output);
+                        string pathPython = py_save.FileName;
+                        string path = "";
+                        string[] subs = pathPython.Split('\\');
+                        string namePython = subs[subs.Length - 1];
 
+                        for (var i = 0; i < subs.Length - 1; ++i)
+                        {
+                            if (i < subs.Length - 2)
+                            {
+                                path += subs[i] + "\\";
+                            }
+                            else
+                                path += subs[i];
+                        }
+                        string strCmdText = "/K c: && cd/ && cd "+path + "&& python "+namePython+".py";
+                        System.Diagnostics.Process.Start("CMD.exe", strCmdText);
                     }
                 }
                 else { }
-                             
+
             }
+        }
+        public void formatPathPython(string path)
+        {
+            //C:\Users\ASUS\Desktop\namefile
+
         }
         //                                build console code to run python in console
         private List<string> PythonRun(string a)
@@ -386,31 +409,30 @@ namespace DacTa
             return python;
         }
         //                     
-        
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
-            if (save_yes_no == DialogResult.Yes)
-            {
-                SaveFileDialog file_save = new SaveFileDialog();
-                if (file_save.ShowDialog() == DialogResult.OK)
-                {
-                    //yes ???
+            //DialogResult save_yes_no = MessageBox.Show("Do you want to save the text ?", "Save", MessageBoxButtons.YesNo);
+            //if (save_yes_no == DialogResult.Yes)
+            //{
+            //    SaveFileDialog file_save = new SaveFileDialog();
+            //    if (file_save.ShowDialog() == DialogResult.OK)
+            //    {
+            //        //yes ???
 
-                    FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
-                    StreamWriter m_WriterParameter = new StreamWriter(fParameter);
-                    m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
-                    m_WriterParameter.Write(textOUTPUT.Text);
-                    m_WriterParameter.Flush();
-                    m_WriterParameter.Close();
-                }
-            }
-            else
-            {
-                
-                
+            //        FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
+            //        StreamWriter m_WriterParameter = new StreamWriter(fParameter);
+            //        m_WriterParameter.BaseStream.Seek(0, SeekOrigin.End);
+            //        m_WriterParameter.Write(textOUTPUT.Text);
+            //        m_WriterParameter.Flush();
+            //        m_WriterParameter.Close();
+            //    }
+            //}
+            string strCmdText;
+            //For Testing
+            strCmdText = "/K ipconfig && g:";
 
-            }
+            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -431,7 +453,7 @@ namespace DacTa
                 SaveFileDialog file_save = new SaveFileDialog();
                 if (file_save.ShowDialog() == DialogResult.OK)
                 {
-                    
+
 
                     FileStream fParameter = new FileStream(file_save.FileName + ".txt", FileMode.Create, FileAccess.Write);
                     StreamWriter m_WriterParameter = new StreamWriter(fParameter);
@@ -441,7 +463,7 @@ namespace DacTa
                     m_WriterParameter.Close();
                 }
             }
-            else {  }
+            else { }
         }
 
         private void btnOPEN_Click(object sender, EventArgs e)
@@ -471,7 +493,7 @@ namespace DacTa
         {
 
         }
-       
+
         private void txbNameFile_MouseClick(object sender, MouseEventArgs e)
         {
             txbNameFile.Clear();
@@ -482,7 +504,7 @@ namespace DacTa
             textINPUT.Clear();
             textOUTPUT.Clear();
         }
-        
+
         private void textOUTPUT_TextChanged(object sender, EventArgs e)
         {
 
