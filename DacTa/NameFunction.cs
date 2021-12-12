@@ -22,30 +22,70 @@ namespace DacTa
         {
             if (NameFunc == "Xuat")
             {
+
                 string[] lines = namePath.Split(new[] { "(", ")" }, StringSplitOptions.None);
                 string[] vari = lines[2].Split(new[] { ":" }, StringSplitOptions.None);
                 string funname = string.Format("\t\tpublic void {1}{0}(", lines[0], NameFunc);
-                for (int i = 0; i < vari.Length; i += 2)
-                {
-                    if (vari[i + 1] == "R")
+                
+                    for (int i = 0; i < vari.Length; i += 2)
                     {
-                        funname += "float ";
-                    }
-                    else if (vari[i + 1] == "Z")
+
+                    if ((lines[0] == "Ham") && (vari[i] == "a"))          //        cho mảng a        //
                     {
-                        funname += "int ";
+                        if (vari[i + 1] == "R")
+                        {
+                            funname += "float[] ";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            funname += "int[] ";
+                        }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += " string[] ";
+                        }
+                        if (vari[i + 1] == "N")
+                        {
+                            funname += " int[] ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += " float[] ";
+                        }
+
                     }
-                    else if (vari[i + 1] == "B")
+                    else
                     {
-                        funname += "bool ";
+                        if (vari[i + 1] == "R")
+                        {
+                            funname += "float ";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            funname += "int ";
+                        }
+                        else if (vari[i + 1] == "B")
+                        {
+                            funname += "bool ";
+                        }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += "string ";
+                        }
+                        else if (vari[i + 1] == "N")
+                        {
+                            funname += "int ";
+                        }
+                        else if (vari[i + 1] == "R*")
+                        {
+                            funname += "float ";
+                        }
                     }
-                    else if (vari[i + 1] == "char*")
-                    {
-                        funname += "string ";
+                    
+                        string varName = string.Format("{0}", vari[i]);
+                        funname += varName;
                     }
-                    string varName = string.Format("{0}", vari[i]);
-                    funname += varName;
-                }
+                
                 funname += ")";
                 return funname;
             }
@@ -54,42 +94,82 @@ namespace DacTa
                 string[] lines = namePath.Split(new[] { "(", ")" }, StringSplitOptions.None);
                 string[] vari = lines[1].Split(new[] { ":", "," }, StringSplitOptions.None);
                 string funname = string.Format("\t\tpublic {2}{1}{0}(", lines[0], NameFunc, loai);
+                
                 for (int i = 0; i < vari.Length; i += 2)
                 {
-                    if (vari[i + 1] == "R")
+                    if ((lines[0] == "Ham") && (vari[i] == "a")) //                       mảng a
                     {
-                        funname += "float ";
-                    }
-                    else if (vari[i + 1] == "Z")
-                    {
-                        funname += "int ";
-                    }
-                    else if (vari[i + 1] == "B")
-                    {
-                        funname += "bool ";
-                    }
-                    else if (vari[i + 1] == "char*")
-                    {
-                        funname += "string ";
-                    }
-                    if (i == 0)
-                    {
-                        if (i + 2 >= vari.Length)
+                        if (vari[i + 1] == "R")
                         {
-                            string varName = string.Format("{0} ", vari[i]);
-                            funname += varName;
+                            funname += "float[] ";
                         }
-                        else
+                        else if (vari[i + 1] == "Z")
                         {
-                            string varName = string.Format("{0}, ", vari[i]);
-                            funname += varName;
+                            funname += "int[] ";
                         }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += " string[] ";
+                        }
+                        if (vari[i + 1] == "N")
+                        {
+                            funname += " int[] ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += " float[] ";
+                        }
+
                     }
                     else
                     {
-                        string varName = string.Format("{0}", vari[i]);
-                        funname += varName;
+                        if (vari[i + 1] == "R")
+                        {
+                            funname += "float ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += "float ";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            funname += "int ";
+                        }
+                        else if (vari[i + 1] == "B")
+                        {
+                            funname += "bool ";
+                        }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += "string ";
+                        }
+                        else if (vari[i + 1] == "N")
+                        {
+                            funname += "int ";
+                        }
                     }
+                    
+                   
+                    
+                        if (i == 0)
+                        {
+                            if (i + 2 >= vari.Length)
+                            {
+                                string varName = string.Format("{0} ", vari[i]);
+                                funname += varName;
+                            }
+                            else
+                            {
+                                string varName = string.Format("{0}, ", vari[i]);
+                                funname += varName;
+                            }
+                        }
+                        else
+                        {
+                            string varName = string.Format("{0}", vari[i]);
+                            funname += varName;
+                        }
+                    
                 }
                 funname += ")";
                 return funname;
@@ -101,22 +181,58 @@ namespace DacTa
                 string funname = string.Format("\t\tpublic int {1}{0}(", lines[0], NameFunc, loai);
                 for (int i = 0; i < vari.Length; i += 2)
                 {
-                    if (vari[i + 1] == "R")
+                    if ((lines[0] == "Ham") && (vari[i] == "a")) //                         mảng a
                     {
-                        funname += "float ";
+                        if (vari[i + 1] == "R")
+                        {
+                            funname += "float[] ";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            funname += "int[] ";
+                        }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += " string[] ";
+                        }
+                        if (vari[i + 1] == "N")
+                        {
+                            funname += " int[] ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += " float[] ";
+                        }
+
                     }
-                    else if (vari[i + 1] == "Z")
+                    else
                     {
-                        funname += "int ";
+                        if (vari[i + 1] == "R")
+                        {
+                            funname += "float ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += "float ";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            funname += "int ";
+                        }
+                        else if (vari[i + 1] == "B")
+                        {
+                            funname += "bool ";
+                        }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += "string ";
+                        }
+                        else if (vari[i + 1] == "N")
+                        {
+                            funname += "int ";
+                        }
                     }
-                    else if (vari[i + 1] == "B")
-                    {
-                        funname += "bool ";
-                    }
-                    else if (vari[i + 1] == "char*")
-                    {
-                        funname += "string ";
-                    }
+                    
                     if (i == 0)
                     {
                         if (i + 2 >= vari.Length)
@@ -126,8 +242,10 @@ namespace DacTa
                         }
                         else
                         {
-                            string varName = string.Format("{0}, ", vari[i]);
-                            funname += varName;
+                            
+                                string varName = string.Format("{0}, ", vari[i]);
+                                funname += varName;
+                            
                         }
                     }
                     else
@@ -146,42 +264,87 @@ namespace DacTa
                 string funname = string.Format("\t\tpublic void {1}{0}(", lines[0], NameFunc);
                 for (int i = 0; i < vari.Length; i += 2)
                 {
-                    if (vari[i + 1] == "R")
+                    if ((lines[0] == "Ham") && (vari[i] == "a"))         //                    mảng a
                     {
-                        funname += "ref float ";
-                    }
-                    else if (vari[i + 1] == "Z")
-                    {
-                        funname += "ref int ";
-                    }
-                    else if (vari[i + 1] == "B")
-                    {
-                        funname += "ref bool ";
-                    }
-                    else if (vari[i + 1] == "char*")
-                    {
-                        funname += "ref string ";
-                    }
-                    if (i == 0)
-                    {
-                        if (i + 2 >= vari.Length)
+                        if (vari[i + 1] == "R")
                         {
-                            string varName = string.Format("{0} ", vari[i]);
-                            funname += varName;
+                            funname += "float[] ";
                         }
-                        else
+                        else if (vari[i + 1] == "Z")
                         {
-                            string varName = string.Format("{0}, ", vari[i]);
-                            funname += varName;
+                            funname += "int[] ";
+                        }                    
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += " string[] ";
                         }
+                        if (vari[i + 1] == "N")
+                        {
+                            funname += " int[] ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += " float[] ";
+                        }
+
                     }
                     else
                     {
-                        string varName = string.Format("{0}", vari[i]);
-                        funname += varName;
+                        if (vari[i + 1] == "R")
+                        {
+                            funname += "ref float ";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            funname += "ref int ";
+                        }
+                        else if (vari[i + 1] == "B")
+                        {
+                            funname += "ref bool ";
+                        }
+                        else if (vari[i + 1] == "char*")
+                        {
+                            funname += "ref string ";
+                        }
+                        if (vari[i + 1] == "N")
+                        {
+                            funname += "ref int ";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            funname += "ref float ";
+                        }
                     }
+                   
+                       
+                    
+                                     
+                       if (i == 0)
+                        {
+                            if (i + 2 >= vari.Length)
+                            {
+                                string varName = string.Format("{0} ", vari[i]);
+                                funname += varName;
+                            }
+                            else
+                            {
+                                string varName = string.Format("{0}, ", vari[i]);
+                                funname += varName;
+                              
+                            }
+                            
+                       }
+                        else
+                        {
+                            string varName = string.Format("{0}", vari[i]);
+                            funname += varName;
+                        }
+                    
+                                                           
+                  
+                   
                 }
-                funname += ")";
+                funname += ")";              
                 return funname;
             }
         }
@@ -194,29 +357,117 @@ namespace DacTa
                 input.Add(SetNamePG("Nhap", namepath, path[1]));
                 input.Add("\t\t{");
 
-                
+            if (path[0] == "Ham")
+            {
+                // lưu phần nhập mảng để thêm cuối //
+                string nhap3="";
+                string nhap4="";
+                string nhap5="";
                 for (int i = 0; i < vari.Length; i += 2)
                 {
+                    if (vari[i] == "a") //                     phần  tạo  nhập  mảng
+                    {
+                         nhap3 = string.Format("\t\t\tfor(int i = 0; i < {0} ;i++)", vari[i + 2]);
+                         nhap4 = string.Format("\t\t\t\tConsole.WriteLine(" + "\"Nhap {0}[i]= \");", vari[i]);
+                         nhap5 = string.Format("\t\t\t\t{0}[i] =", vari[i]);
+                        if (vari[i + 1] == "R")
+                        {
+                            nhap5 += "float.Parse(Console.ReadLine());";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            nhap5 += "int.Parse(Console.ReadLine());";
+                        }
+                        else if (vari[i + 1] == "N")
+                        {
+                            nhap5 += "int.Parse(Console.ReadLine());";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            nhap5 += "float.Parse(Console.ReadLine());";
+                        }
+                        
+
+                    }
+                    else
+                    {
+                        string nhap1 = string.Format("\t\t\tConsole.WriteLine(" + "\"Nhap {0}: \");", vari[i]);
+                        input.Add(nhap1);
+                        string nhap2 = string.Format("\t\t\t{0} =", vari[i]);
+
+                        if (vari[i + 1] == "R")
+                        {
+                            nhap2 += "float.Parse(Console.ReadLine());";
+                        }
+                        else if (vari[i + 1] == "Z")
+                        {
+                            nhap2 += "int.Parse(Console.ReadLine());";
+                        }
+                        else if (vari[i + 1] == "B")
+                        {
+                            nhap2 += "bool.Parse(Console.ReadLine());";
+                        }
+                        else if (vari[i + 1] == "N")
+                        {
+                            nhap2 += "int.Parse(Console.ReadLine());";
+                        }
+                        if (vari[i + 1] == "R*")
+                        {
+                            nhap2 += "float.Parse(Console.ReadLine());";
+                        }
+
+
+                        input.Add(nhap2);
+                    }
+                    
+                }
+                input.Add(nhap3);
+                input.Add("\t\t\t{");
+                input.Add(nhap4);
+                input.Add(nhap5);
+                input.Add("\t\t\t}");
+
+            }
+            else
+            {
+                for (int i = 0; i < vari.Length; i += 2)
+                {
+
+
                     string nhap1 = string.Format("\t\t\tConsole.WriteLine(" + "\"Nhap {0}: \");", vari[i]);
                     input.Add(nhap1);
                     string nhap2 = string.Format("\t\t\t{0} =", vari[i]);
 
                     if (vari[i + 1] == "R")
                     {
-                    nhap2 += "float.Parse(Console.ReadLine());";
+                        nhap2 += "float.Parse(Console.ReadLine());";
                     }
                     else if (vari[i + 1] == "Z")
                     {
-                    nhap2 += "int.Parse(Console.ReadLine());";
+                        nhap2 += "int.Parse(Console.ReadLine());";
                     }
                     else if (vari[i + 1] == "B")
                     {
-                    nhap2 += "bool.Parse(Console.ReadLine());";
+                        nhap2 += "bool.Parse(Console.ReadLine());";
                     }
+                    else if (vari[i + 1] == "N")
+                    {
+                        nhap2 += "int.Parse(Console.ReadLine());";
+                    }
+                    if (vari[i + 1] == "R*")
+                    {
+                        nhap2 += "float.Parse(Console.ReadLine());";
+                    }
+
+
                     input.Add(nhap2);
+
+
                 }
-                input.Add("\t\t}");
-                     
+            }
+
+
+            input.Add("\t\t}");
         }
         public void HamXuat(List<string> input, string namepath)
         {
@@ -246,28 +497,87 @@ namespace DacTa
 
             string[] lines = namepath.Split(new[] { "(", ")" }, StringSplitOptions.None);
             string[] vari1 = lines[1].Split(new[] { ":", "," }, StringSplitOptions.None);
-            for (int i = 0; i < vari1.Length; i += 2)
-            {
 
-                if (vari1[i + 1] == "R")
+            
+            
+                for (int i = 0; i < vari1.Length; i += 2)
                 {
-                    loai = "float ";
+                    if((lines[0] == "Ham") && (vari1[i] == "a"))//             cho mảng a
+                  {
+                    if (vari1[i + 1] == "R")
+                    {
+                        loai = "float ";
+
+                    }
+                    else if (vari1[i + 1] == "R*")
+                    {
+                        loai = "float ";
+                    }
+                    else if (vari1[i + 1] == "Z")
+                    {
+                        loai = "int ";
+
+                    }
+                    else if (vari1[i + 1] == "B")
+                    {
+                        loai = "bool ";
+                    }
+
+                    else if (vari1[i + 1] == "N")
+                    {
+                        loai = "int ";
+                    }
+
+                    string CreateResult;
+
+                    if (vari1[i] == "a")         // mảng a
+                    {
+                        loai = loai + "[]";
+                        loai = loai.Replace(" ", string.Empty);
+                        string loai2 = loai.Replace("[]", "[100]");
+                        CreateResult = string.Format("\t\t\t{0} {1} = new {2};", loai, vari1[i], loai2);
+                    }
+                    else
+                    {
+                        CreateResult = string.Format("\t\t\t{0} {1} = new {0};", loai, vari1[i]);
+                    }
+
+                    input.Add(CreateResult);
                 }
-                else if (vari1[i + 1] == "Z")
-                {
-                    loai = "int ";
+                    else
+                  {
+                    if (vari1[i + 1] == "R")
+                    {
+                        loai = "float ";
+                    }
+                    else if (vari1[i + 1] == "R*")
+                    {
+                        loai = "float ";
+                    }
+                    else if (vari1[i + 1] == "Z")
+                    {
+                        loai = "int ";
+                    }
+                    else if (vari1[i + 1] == "B")
+                    {
+                        loai = "bool ";
+                    }
+                    else if (vari1[i + 1] == "char*")
+                    {
+                        loai = "string ";
+                    }
+                    else if (vari1[i + 1] == "N")
+                    {
+                        loai = "int ";
+                    }
+                    string CreateResult = string.Format("\t\t\t{0}{1} = 0;", loai, vari1[i]);
+                    input.Add(CreateResult);
+                  }
+                    
+                    
                 }
-                else if (vari1[i + 1] == "B")
-                {
-                    loai = "bool ";
-                }
-                else if (vari1[i + 1] == "char*")
-                {
-                    loai = "string ";
-                }
-                string CreateResult = string.Format("\t\t\t{0}{1} = 0;", loai, vari1[i]);
-                input.Add(CreateResult);
-            }
+            
+            
             string[] vari2 = lines[2].Split(new[] { ":" }, StringSplitOptions.None);
             for (int i = 0; i < vari2.Length; i += 2)
             {
@@ -296,6 +606,12 @@ namespace DacTa
                     string CreateResult = string.Format("\t\t\t{0}{1} = null;", loai, "kq");
                     input.Add(CreateResult);
                 }
+                else if (vari2[i + 1] == "N")
+                {
+                    loai = "int ";
+                    string CreateResult = string.Format("\t\t\t{0}{1} = 0;", loai, "kq");
+                    input.Add(CreateResult);
+                }
 
             }
             input.Add("\t\t\tProgram p = new Program();");
@@ -304,12 +620,20 @@ namespace DacTa
             string functionname = string.Format("\t\t\tp.Nhap{0}(", lines[0]);
             if (vari1.Length > 2)
             {
+                
                 for (int i = 0; i < vari1.Length; i += 2)
                 {
-                    if (i == 0)
+                    
+                        if (i == 0)
                     {
-                        string varName = string.Format("ref {0}, ", vari1[i]);
-                        functionname += varName;
+                        if ((vari1[i] == "a") && (lines[0] == "Ham"))
+                            {
+                            string varName = string.Format(" {0}, ", vari1[i]);
+                            functionname += varName;
+                        }
+                        else
+                        { string varName = string.Format("ref {0}, ", vari1[i]);
+                            functionname += varName; }
                     }
                     else
                     {
@@ -334,8 +658,11 @@ namespace DacTa
                 {
                     if (i == 0)
                     {
-                        string varName = string.Format("{0}, ", vari1[i]);
-                        funcCondition += varName;
+                        
+                            string varName = string.Format("{0}, ", vari1[i]);
+                            funcCondition += varName;
+                        
+                        
                     }
                     else
                     {

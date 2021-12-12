@@ -34,7 +34,9 @@ namespace DacTa
                      input.Add("\t\t\t\treturn 1;");
                      input.Add("\t\t\t}");
                      input.Add("\t\t\treturn 0;");
-                }
+                     input.Add("\t\t}");
+
+            }
             
             
         }
