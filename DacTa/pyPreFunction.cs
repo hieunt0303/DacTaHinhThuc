@@ -15,8 +15,6 @@ namespace DacTa
 
 
             input.Add(SetNamePG("KiemTra", namepath, path[1]));
-            
-
 
             string check = pre;
             check = pre.Replace("pre", "").Replace(" ", string.Empty);
@@ -27,7 +25,7 @@ namespace DacTa
             }
             else
             {
-                state = string.Format("\tif({0})", check);
+                state = string.Format("\tif({0}):", check.Replace("&&", "and"));
                 input.Add(state);
                 input.Add("\t\treturn 1");
                 input.Add("\treturn 0");

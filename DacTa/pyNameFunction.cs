@@ -94,28 +94,32 @@ namespace DacTa
             {
                 string[] lines = namePath.Split(new[] { "(", ")" }, StringSplitOptions.None);
                 string[] vari = lines[1].Split(new[] { ":", "," }, StringSplitOptions.None);
+                
                 string funname = string.Format("def {1}{0}(", lines[0], NameFunc);
-                for (int i = 0; i < vari.Length; i += 2)
-                {
-                    if (i == 0)
+
+              
+                    for (int i = 0; i < vari.Length; i += 2)
                     {
-                        if (i + 2 >= vari.Length)
+                        if (i == 0)
                         {
-                            string varName = string.Format("{0} ", vari[i]);
-                            funname += varName;
+                            if (i + 2 >= vari.Length)
+                            {
+                                string varName = string.Format("{0} ", vari[i]);
+                                funname += varName;
+                            }
+                            else
+                            {
+                                string varName = string.Format("{0}, ", vari[i]);
+                                funname += varName;
+                            }
                         }
                         else
                         {
-                            string varName = string.Format("{0}, ", vari[i]);
+                            string varName = string.Format("{0}", vari[i]);
                             funname += varName;
                         }
                     }
-                    else
-                    {
-                        string varName = string.Format("{0}", vari[i]);
-                        funname += varName;
-                    }
-                }
+                
                 funname += "):";
                 return funname;
             }
@@ -127,33 +131,43 @@ namespace DacTa
             string[] vari = path[1].Split(new[] { ":", "," }, StringSplitOptions.None);
 
             input.Add(SetNamePG("Nhap", namepath, path[1]));
-
-            for (int i = 0; i < vari.Length; i += 2)
+            
+            if (namepath.Split(new[] { "(", ")" }, StringSplitOptions.None)[0] == "Ham")
             {
-                string nhap2 = string.Format("\t{0} =", vari[i]);
-
-                if (vari[i + 1] == "R")
-                {
-                    nhap2 += "float(input('Nhap "+vari[i]+": '))";
-                }
-                else if (vari[i + 1] == "Z")
-                {
-                    nhap2 += "int(input('Nhap " + vari[i] + ": '))";
-                }
-                else if (vari[i + 1] == "B")
-                {
-                    nhap2 += "bool(input('Nhap " + vari[i] + ": '))";
-                }
+                string nhap2 = "\tn = int(input('Nhap n: '))\n";
+                nhap2 += "\tfor i in range(n):\n";
+                nhap2 += "\t\ta.append(input('Nhap so thu %d: ' % (i+1)))\n";
                 input.Add(nhap2);
             }
-            string returnInput = "\treturn ";
-            for (int i = 0; i < vari.Length; i += 2)
+            else
             {
-                returnInput += vari[i];
-                if (i < vari.Length - 2)
-                    returnInput += ","; 
+                for (int i = 0; i < vari.Length; i += 2)
+                {
+                    string nhap2 = string.Format("\t{0} =", vari[i]);
+
+                    if (vari[i + 1] == "R")
+                    {
+                        nhap2 += "float(input('Nhap " + vari[i] + ": '))";
+                    }
+                    else if (vari[i + 1] == "Z")
+                    {
+                        nhap2 += "int(input('Nhap " + vari[i] + ": '))";
+                    }
+                    else if (vari[i + 1] == "B")
+                    {
+                        nhap2 += "bool(input('Nhap " + vari[i] + ": '))";
+                    }
+                    input.Add(nhap2);
+                }
+                string returnInput = "\treturn ";
+                for (int i = 0; i < vari.Length; i += 2)
+                {
+                    returnInput += vari[i];
+                    if (i < vari.Length - 2)
+                        returnInput += ",";
+                }
+                input.Add(returnInput);
             }
-            input.Add(returnInput);
         }
         public void HamXuat(List<string> input, string namepath)
         {
@@ -177,10 +191,17 @@ namespace DacTa
         {
             string[] lines = namepath.Split(new[] { "(", ")" }, StringSplitOptions.None);
             string[] vari1 = lines[1].Split(new[] { ":", "," }, StringSplitOptions.None);
-            for (int i = 0; i < vari1.Length; i += 2)
+            if (lines[0] == "Ham")
             {
-                string CreateResult = string.Format("{0}= 0", vari1[i]);
-                input.Add(CreateResult);
+                input.Add("a=[]\nn=0\n");
+            }
+            else
+            {
+                for (int i = 0; i < vari1.Length; i += 2)
+                {
+                    string CreateResult = string.Format("{0}= 0", vari1[i]);
+                    input.Add(CreateResult);
+                }
             }
             string[] vari2 = lines[2].Split(new[] { ":" }, StringSplitOptions.None);
             for (int i = 0; i < vari2.Length; i += 2)
@@ -201,17 +222,17 @@ namespace DacTa
                 else if (vari2[i + 1] == "B")
                 {
                     loai = "bool ";
-                    string CreateResult = string.Format("{0} = true", "kq");
+                    string CreateResult = string.Format("{0} = True", "kq");
                     input.Add(CreateResult);
                 }
                 else if (vari2[i + 1] == "char*")
                 {
                     loai = "string ";
-                    string CreateResult = string.Format("{0} = null", "kq");
+                    string CreateResult = string.Format("{0} = ''", "kq");
                     input.Add(CreateResult);
                 }
             }
-
+           
             string arrInput = "";
             for (int i = 0; i < vari1.Length; i += 2)
             {
@@ -219,10 +240,17 @@ namespace DacTa
                 if (i < vari1.Length - 2)
                     arrInput += ",";
             }
+            string functionname = "";
+            if (lines[0] == "Ham")
+            {
+                functionname = string.Format("Nhap{0}(", lines[0]);
+            }
+            else
+            {
+                //khoi tao ham Nhap trong main
+                functionname = string.Format("{0} = Nhap{1}(", arrInput, lines[0]);
+            }
 
-
-            //khoi tao ham Nhap trong main
-            string functionname = string.Format("{0} = Nhap{1}(", arrInput, lines[0]);
             if (vari1.Length > 2)
             {
                 for (int i = 0; i < vari1.Length; i += 2)

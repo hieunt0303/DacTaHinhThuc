@@ -51,7 +51,17 @@ namespace DacTa
             }
             else if (vari[1] == "B")
             {
-                string CreateResult = string.Format("\t\t\t{0}{1} = true;", loai, vari[0]);
+                string CreateResult = "";
+                if (namepath.Contains("Ham"))
+                {
+                    if (postpath.Contains("VM"))
+                        CreateResult = string.Format("\t\t\t{0} {1} = true;", loai, vari[0]);
+                    else
+                        CreateResult = string.Format("\t\t\t{0} {1} = false;", loai, vari[0]);
+                }
+                else
+                    CreateResult = string.Format("\t\t\t{0} {1} = true;", loai, vari[0]);
+
                 data_output.Add(CreateResult);
             }
             //nội dung hàm post
@@ -161,7 +171,7 @@ namespace DacTa
                                 statement = PreWrite(statement, 1);
                                 statement = string.Format("\t\t\t\t\tif({0})", statement);
                                 string statement2 = string.Format("\t\t\t\t\t{0} =false ;", vari[0]);
-                                statementOut = string.Format("\t\t\t\t{0} =true ;", vari[0]);
+                                //statementOut = string.Format("\t\t\t\t{0} =true ;", vari[0]);
                                 data_output.Add(statement);
                                 data_output.Add(statement2);
                                 data_output.Add("\t\t\t\t}");
@@ -172,7 +182,7 @@ namespace DacTa
                                 string statement = conditionVari[i].Replace("(", "[").Replace(")", "]");
                                 statement = string.Format("\t\t\t\t\tif({0})", statement);
                                 string statement2 = string.Format("\t\t\t\t\t{0} =true ;", vari[0]);
-                                statementOut = string.Format("\t\t\t{0} =false ;", vari[0]);
+                                //statementOut = string.Format("\t\t\t{0} =false ;", vari[0]);
                                 data_output.Add(statement);
                                 data_output.Add(statement2);
                                 data_output.Add("\t\t\t\t}");
